@@ -1,11 +1,14 @@
-from app import flask_app
+from app import flask_app, products_collection
+from flask import render_template
 
 @flask_app.route("/")
-@flask_app.route("/index")
 def index():
-    return "This is the index page!"
+    return render_template("index.html")
 
 
-@flask_app.route("/dashboard")
-def dashboard():
-    return "This is the dashboard page!"
+@flask_app.route("/products")
+def products():
+    # Fetch all products from MongoDB
+    products = list(products_collection.find())
+    print(products)
+    return render_template("products.html", products=products)

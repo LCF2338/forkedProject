@@ -35,5 +35,5 @@ black_friday_deals = {
         "tag": "Black Friday Deals"
     }
 
-# products_collection.insert_many(products)  # allows you to add a list of dictionaries into the database
-products_collection.insert_one(black_friday_deals)  # allows you to add a single dictionary into the database
+products_collection.insert_many(products)  # allows you to add a list of dictionaries into the database
+# products_collection.insert_one(black_friday_deals)  # allows you to add a single dictionary into the database

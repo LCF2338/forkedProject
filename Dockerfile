@@ -10,6 +10,7 @@ COPY . .
 
 # To install the dependency
 RUN pip install flask
+RUN pip install pymongo
 
 # To open the port 5000 in the container
 EXPOSE 5000

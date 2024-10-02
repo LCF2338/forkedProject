@@ -34,14 +34,12 @@ jobs:
       - name: Set up a virtual environment
         run: |
           python3 -m venv venv  # Create a virtual environment in a directory called venv
-#          venv/Scripts/activate  # Activate the virtual environment
           venv/bin/activate  # Activate the virtual environment
           pip install flask
           pip install pytest
 
       - name: Run unit tests inside the virtual environment
         run: |
-#          venv/Scripts/activate  # Activate the virtual environment
           venv/bin/activate  # Activate the virtual environment
           pytest tests/  # Runs the unit testing files under the directory tests
 

@@ -16,7 +16,9 @@ jobs:
         uses: actions/checkout@v2  # Clones the project into the working directory
 
       - name: Build Docker Image
-        run: docker build -t flask-app-1:v1.0.0 -f Dockerfile .
+        run: |
+          
+          docker build -t flask-app-1:v1.0.0 -f Dockerfile .
 
   # Stage 2: Unit testing the application
   test:

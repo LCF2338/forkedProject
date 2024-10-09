@@ -1,8 +1,15 @@
 # pip install pymongo
 from pymongo import MongoClient
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+db_username = os.environ["MONGODB_USERNAME"]
+db_password = os.environ.get("MONGODB_PASSWORD")
 
 # MongoDB Atlas Connection
-client = MongoClient("mongodb+srv://root:iCJPtO3HoTEUyZ3e@cluster0.bb9ww.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+client = MongoClient(f"mongodb+srv://{db_username}:{db_password}@cluster0.bb9ww.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 db = client.app  # Replace "app" with your database name
 products_collection = db.products  # Replace products with your collection name
 

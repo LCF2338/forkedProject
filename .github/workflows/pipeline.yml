@@ -49,4 +49,6 @@ jobs:
     runs-on: aws-debian-runner-1  # Using the self-hosted runner
     steps:
       - name: Deploy the image
-        run: docker run -d -p 5000:5000 flask-app-1:v1.0.0  # -d runs the container in the background
+        run: |
+          docker rm -f flask-app-1
+          docker run -d -p 5000:5000 flask-app-1:v1.0.0  # -d runs the container in the background

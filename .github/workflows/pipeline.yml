@@ -1,21 +1,29 @@
+# Trigger of the pipeline
+on:
+  # Initiate the pipeline when there is a push event in the main branch
+  push:
+    branches:
+      - main
+
 jobs:
-  # Stage 1: Building the docker image
+  # Stage 1: Building the Docker image
   build-docker-image:
-    name: The job to build the application docker image
+    name: Build the application Docker image
     runs-on: aws-debian-runner-1  # Using the self-hosted runner
     steps:
-      - name: Clone and Checkout to the repository
+      - name: Checkout repository
         uses: actions/checkout@v2  # Clones the project into the working directory
 
       - name: Build Docker Image
         run: docker build -t flask-app-1:v1.0.0 -f Dockerfile .
 
+  # Stage 2: Unit testing the application
   test:
     name: Unit testing of the application
     needs: [build-docker-image]
     runs-on: aws-debian-runner-1
     steps:
-      - name: Clone and Checkout to the repository
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up and run tests in a virtual environment
@@ -33,3 +41,12 @@ jobs:
 
           # Run unit tests
           pytest tests/
+
+  # Stage 3: Deploy the Docker image
+  deploy-docker-image:
+    name: Deploy the Flask image
+    needs: [build-docker-image]
+    runs-on: aws-debian-runner-1  # Using the self-hosted runner
+    steps:
+      - name: Deploy the image
+        run: docker run -d -p 5000:5000 flask-app-1:v1.0.0  # -d runs the container in the background

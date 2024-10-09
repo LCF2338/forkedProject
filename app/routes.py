@@ -11,5 +11,4 @@ def index():
 def products():
     # Fetch all products from MongoDB
     products = list(products_collection.find())
-    print(products)
     return render_template("products.html", products=products)

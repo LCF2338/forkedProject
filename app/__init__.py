@@ -13,7 +13,7 @@ load_dotenv()
 
 db_username = os.environ["MONGODB_USERNAME"]
 db_password = os.environ.get("MONGODB_PASSWORD")
-print(os.environ["USERNAME"])
+
 # MongoDB Atlas Connection
 client = MongoClient(f"mongodb+srv://{db_username}:{db_password}@cluster0.bb9ww.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 db = client.app  # Replace "app" with your database name

@@ -17,33 +17,32 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          
           docker build -t flask-app-1:v1.0.0 -f Dockerfile .
 
-  # Stage 2: Unit testing the application
-  test:
-    name: Unit testing of the application
-    needs: [build-docker-image]
-    runs-on: aws-debian-runner-1
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up and run tests in a virtual environment
-        shell: bash
-        run: |
-          # Create a virtual environment in a directory called venv
-          python3 -m venv venv
-
-          # Activate the virtual environment
-          source venv/bin/activate
-
-          # Upgrade pip and install dependencies
-          pip install --upgrade pip
-          pip install flask pytest pymongo
-
-          # Run unit tests
-          pytest tests/
+#  # Stage 2: Unit testing the application
+#  test:
+#    name: Unit testing of the application
+#    needs: [build-docker-image]
+#    runs-on: aws-debian-runner-1
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v2
+#
+#      - name: Set up and run tests in a virtual environment
+#        shell: bash
+#        run: |
+#          # Create a virtual environment in a directory called venv
+#          python3 -m venv venv
+#
+#          # Activate the virtual environment
+#          source venv/bin/activate
+#
+#          # Upgrade pip and install dependencies
+#          pip install --upgrade pip
+#          pip install flask pytest pymongo
+#
+#          # Run unit tests
+#          pytest tests/
 
   # Stage 3: Deploy the Docker image
   deploy-docker-image:

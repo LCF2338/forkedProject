@@ -73,10 +73,12 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Pull Docker Image
+        # docker pull downloads the image from docker hub
         run: |
           docker pull $DOCKERHUB_NAMESPACE/$DOCKERHUB_REPOSITORY:$IMAGE_VERSION
 
       - name: Deploy the image
-        # docker rm -f flask-app-1 || true
+        # the docker rm removes the running container and then we run the new container
         run: |
+          docker rm -f $DOCKERHUB_REPOSITORY || true 
           docker run -d -p 5000:5000 --name $DOCKERHUB_REPOSITORY -e MONGODB_USERNAME=${{ secrets.MONGODB_USERNAME }} -e MONGODB_PASSWORD=${{ secrets.MONGODB_PASSWORD }} $DOCKERHUB_NAMESPACE/$DOCKERHUB_REPOSITORY:$IMAGE_VERSION  # -d runs the container in the background

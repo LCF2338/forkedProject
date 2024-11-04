@@ -2,3 +2,5 @@
 *.env
 *.pem
 *.key
+/tests
+insert_data.py

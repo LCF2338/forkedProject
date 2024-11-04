@@ -9,6 +9,7 @@ on:
 env:
   DOCKERHUB_NAMESPACE: csd4503  # replace this value with your own namespace
   DOCKERHUB_REPOSITORY: flask  # replace this value with your own repository
+  DOCKERHUB_TEST_REPOSITORY: flask-test  # replace this value with your own repository
   IMAGE_VERSION: v1.0.0
 
 jobs:
@@ -28,10 +29,17 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Build Docker Image
-        run: |
-          docker build -t $DOCKERHUB_NAMESPACE/$DOCKERHUB_REPOSITORY:$IMAGE_VERSION -f Dockerfile .
-          docker push $DOCKERHUB_NAMESPACE/$DOCKERHUB_REPOSITORY:$IMAGE_VERSION
+      - name: Build Main Docker Image
+        run: docker build -t $DOCKERHUB_NAMESPACE/$DOCKERHUB_REPOSITORY:$IMAGE_VERSION -f Dockerfile .
+
+      - name: Push Main Docker Image
+        run: docker push $DOCKERHUB_NAMESPACE/$DOCKERHUB_REPOSITORY:$IMAGE_VERSION
+
+      - name: Build Test Docker Image
+        run: docker build -t $DOCKERHUB_NAMESPACE/$DOCKERHUB_TEST_REPOSITORY:$IMAGE_VERSION -f DockerfileTest .
+
+      - name: Push Test Docker Image
+        run: docker push $DOCKERHUB_NAMESPACE/$DOCKERHUB_TEST_REPOSITORY:$IMAGE_VERSION
 
 #  # Stage 2: Unit testing the application
 #  test:

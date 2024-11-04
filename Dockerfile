@@ -6,6 +6,7 @@ FROM python:3.9-alpine
 WORKDIR /
 
 # To copy the files to the working directory
+# this is the command that ignores the files/direcotories in the .dockerignore
 COPY . .
 
 # To install the dependency

@@ -10,6 +10,9 @@ WORKDIR /
 # To copy the files to the working directory
 COPY . .
 
+# this line will overwrite dockerignore and adds /tests direcotry into the docker image
+COPY /tests /tests
+
 # To install the dependency
 RUN pip install -r requirements.txt
 

@@ -45,7 +45,7 @@ jobs:
         run: docker push $DOCKERHUB_NAMESPACE/$DOCKERHUB_TEST_REPOSITORY:$IMAGE_VERSION
 
   # Stage 2: Unit testing the application
-  test:
+  unittest-docker:
     name: Unit testing of the application
     needs: [build-docker-image]
     runs-on: aws-debian-runner-1
@@ -71,7 +71,7 @@ jobs:
   # Stage 3: Deploy the Docker image
   deploy-docker-image:
     name: Deploy the Flask image
-    needs: [build-docker-image]
+    needs: [unittest-docker, build-docker-image]
     runs-on: aws-debian-runner-1  # Using the self-hosted runner
     environment: development  # This tells GitHub where to get the secrets
     steps:

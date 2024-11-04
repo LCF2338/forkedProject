@@ -17,7 +17,7 @@ class FlaskTestCase(unittest.TestCase):
         response = self.app.get("/")
 
         # Check if the response is 200 OK
-        self.assertEqual(first=response.status_code, second=404)
+        self.assertEqual(first=response.status_code, second=200)
 
     def test_index_2(self):
         # Send a GET request to the "/" route

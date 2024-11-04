@@ -36,7 +36,10 @@ jobs:
         run: docker push $DOCKERHUB_NAMESPACE/$DOCKERHUB_REPOSITORY:$IMAGE_VERSION
 
       - name: Build Test Docker Image
-        run: docker build -t $DOCKERHUB_NAMESPACE/$DOCKERHUB_TEST_REPOSITORY:$IMAGE_VERSION -f DockerfileTest .
+        run: |
+          mv .dockerignore .dockerignore.temp
+          docker build -t $DOCKERHUB_NAMESPACE/$DOCKERHUB_TEST_REPOSITORY:$IMAGE_VERSION -f DockerfileTest .
+          mv .dockerignore.temp .dockerignore
 
       - name: Push Test Docker Image
         run: docker push $DOCKERHUB_NAMESPACE/$DOCKERHUB_TEST_REPOSITORY:$IMAGE_VERSION

@@ -2,7 +2,7 @@
 # pip install flask
 # pip install python-dotenv
 
-# To import the flask into the project use the following line:
+# To import the flask into the project use the following line::
 from flask import Flask
 from pymongo import MongoClient
 from dotenv import load_dotenv

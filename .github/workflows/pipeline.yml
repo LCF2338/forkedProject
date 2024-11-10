@@ -7,9 +7,9 @@ on:
 
 # Global variables
 env:
-  DOCKERHUB_NAMESPACE: csd4503  # replace this value with your own namespace
-  DOCKERHUB_REPOSITORY: flask  # replace this value with your own repository
-  DOCKERHUB_TEST_REPOSITORY: flask-test  # replace this value with your own repository
+  DOCKERHUB_NAMESPACE: c0750688  # replace this value with your own namespace
+  DOCKERHUB_REPOSITORY: forkedproject # replace this value with your own repository
+  DOCKERHUB_TEST_REPOSITORY: ???  # replace this value with your own repository
   IMAGE_VERSION: v1.0.0
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
   build-docker-image:
     name: Build the application Docker image
     environment: development # this allows GitHub to access secrets in the development environment
-    runs-on: aws-debian-runner-1  # Using the self-hosted runner
+    runs-on: debian-runner  # Using the self-hosted runner
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2  # Clones the project into the working directory
@@ -48,7 +48,7 @@ jobs:
   unittest-docker:
     name: Unit testing of the application
     needs: [build-docker-image]
-    runs-on: aws-debian-runner-1
+    runs-on: debian-runner
     environment: development  # This tells GitHub where to get the secrets
     steps:
       # This GitHub action handles the authentication with an artifact registry
@@ -72,7 +72,7 @@ jobs:
   deploy-docker-image:
     name: Deploy the Flask image
     needs: [unittest-docker, build-docker-image]
-    runs-on: aws-debian-runner-1  # Using the self-hosted runner
+    runs-on: debian-runner # Using the self-hosted runner
     environment: development  # This tells GitHub where to get the secrets
     steps:
       # This GitHub action handles the authentication with an artifact registry
